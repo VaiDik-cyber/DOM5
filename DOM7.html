@@ -38,12 +38,12 @@
     itemlist.parentNode.style.backgroundColor = "#f4f4f4";
     // console.log(itemlist.parentNode.parentNode);
     */
-    /*
+    // /*
     //parentElement
-    // console.log(itemlist.parentElement);
+    console.log(itemlist.parentElement);
     itemlist.parentElement.style.backgroundColor = "#f4f4f4";
     // console.log(itemlist.parentElement.parentElement);
-    */
+    // */
 
     /*
     //childNodes & children
@@ -97,19 +97,24 @@ newDiv.id = 'hello1';
 newDiv.setAttribute('title','hello div');
 
 //create text node
-var newDivText = document.createTextNode('Hello World');
+var newDivText = document.createTextNode('HEllo');
 
 // add text to div
 newDiv.appendChild(newDivText);
 newDiv.style.fontSize = '30px';
 
-var container = document.querySelector('header .container');
-var h1 = document.querySelector('header h1');
+// //for task1
+// var container = document.querySelector('div #main');
+// var ul = document.querySelector('div #items');
+
+//for task2
+var container = document.querySelector('div #main');
+var ul = document.querySelector('div #items');
 
 console.log(newDiv);
 console.log(newDiv.innerHTML);
 
-container.insertBefore(newDiv,h1);
+container.insertBefore(newDiv,ul);
 </script>
 </body>
 </html>
