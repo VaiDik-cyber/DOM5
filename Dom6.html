@@ -29,6 +29,16 @@
     </ul>
    </div>
   </div>
-  <script src="DOM1.js"></script>
+
+  <script>
+
+    //Make the 2nd item have green background color
+    let listItem2 = document.querySelector('.list-group-item:nth-child(2)');
+    listItem2.style.backgroundColor = 'green';
+
+    //Make the 3rd item invisible
+    let listItem3 = document.querySelector('.list-group-item:nth-child(3)');
+    listItem3.innerHTML = " ";
+  </script>
 </body>
 </html>
