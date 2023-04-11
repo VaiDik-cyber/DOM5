@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="#" onsubmit="onsubmit(e)">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name">
+        <label for="mail">Email:</label>
+        <input type="text" name="mail" id="mail">
+        <input type="button" value="submit" id="btn">
+    </form>
+    <script>
+        
+        let btn = document.getElementById('btn');
+        
+        btn.addEventListener('click',function onsubmit(e){
+            e.preventDefault();
+            let myobj ={
+                name: document.getElementById('name').value,
+                mail: document.getElementById('mail').value,
+            }
+            // console.log(myobj);
+            // console.log(JSON.stringify(myobj));
+
+            //to store object in localStorage first have to convert into string
+            localStorage.setItem("myobj",JSON.stringify(myobj));
+        });
+    </script>
+</body>
+</html>
