@@ -12,6 +12,8 @@
         <input type="text" name="name" id="name">
         <label for="mail">Email:</label>
         <input type="text" name="mail" id="mail">
+        <label for="phone">Phone:</label>
+        <input type="number" name="phone" id="phone">
         <input type="button" value="submit" id="btn">
     </form>
     <script>
@@ -20,15 +22,19 @@
         
         btn.addEventListener('click',function onsubmit(e){
             e.preventDefault();
+        
             let myobj ={
                 name: document.getElementById('name').value,
                 mail: document.getElementById('mail').value,
+                phone: document.getElementById('phone').value,
             }
             // console.log(myobj);
             // console.log(JSON.stringify(myobj));
-
+            let list = document.createElement('li');
+            list.textContent = `${myobj.name} - ${myobj.mail} - ${myobj.phone}`;
+            document.body.append(list);
             //to store object in localStorage first have to convert into string
-            localStorage.setItem("myobj",JSON.stringify(myobj));
+            localStorage.setItem(JSON.stringify(myobj.mail),JSON.stringify(myobj));
         });
     </script>
 </body>
