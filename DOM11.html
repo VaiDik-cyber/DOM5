@@ -17,101 +17,118 @@
         <input type="button" value="submit" id="btn">
     </form>
     <script>
-        // let name = document.getElementById('name').value;
-        // let mail = document.getElementById('mail').value;
-        // let phone = document.getElementById('phone').value;
-        // let btn = document.getElementById('btn');
+        let name = document.getElementById('name').value;
+        let mail = document.getElementById('mail').value;
+        let phone = document.getElementById('phone').value;
+        let btn = document.getElementById('btn');
         
         
-        // btn.addEventListener('click',function onsubmit(e){
-        //     e.preventDefault();
+        btn.addEventListener('click',function onsubmit(e){
+            e.preventDefault();
         
-        //     let myobj ={
-        //         name:document.getElementById('name').value,
-        //         mail:document.getElementById('mail').value,
-        //         phone:document.getElementById('phone').value,
-        //     }
-        //     // console.log(myobj);
-        //     // console.log(JSON.stringify(myobj));
-        //     let list = document.createElement('li');
-        //     list.append(deleteBtn);
-        //     document.body.append(list);
-        //     let deleteBtn = document.createElement('button');
-        //     deleteBtn.id='delete';
-        //     deleteBtn.textContent = 'Delete';
+            let myobj ={
+                name:document.getElementById('name').value,
+                mail:document.getElementById('mail').value,
+                phone:document.getElementById('phone').value,
+            }
+            // console.log(myobj);
+            // console.log(JSON.stringify(myobj));
             
-        //     //to store object in localStorage first have to convert into string
-        //     localStorage.setItem(JSON.stringify(myobj.mail),JSON.stringify(myobj));
+            //to store object in localStorage first have to convert into string
+            localStorage.setItem(myobj.mail,JSON.stringify(myobj));
 
+            showUserOnScreen(myobj);
+        });
+
+        function showUserOnScreen(myobj){
+            //create list 
+            let list = document.createElement('li');
+            // add content to list 
+            list.textContent = `${myobj.name} - ${myobj.mail} - ${myobj.phone}`;
+
+            // create delete button
+            let deleteBtn = document.createElement('button');
+            //add class to delete button
+            deleteBtn.className='delete';
+            //add text to delete button
+            deleteBtn.textContent = 'Delete';
+
+            //add delete button to list
+            list.append(deleteBtn);
+            //add list to body
+            document.body.append(list);
             
-        // });
-        // let deleteBtn = document.getElementById('delete');
-        // deleteBtn.addEventListener('click',function deletelist(event){
-        //         event.preventDefault();
-
-        //         localStorage.removeItem(mail);
-        //     });
-        var button = document.getElementById('button');
-
-
-button.addEventListener('click' , add);
-function add(e){
-
-    e.preventDefault();
-
-    //create adiv here firstly 
-    let list = document.createElement('li'); //list created here ..
-
-    //details print 
-
-    //create the text here ...
-    var text1 = document.createTextNode("Name: " + document.getElementById('firstname')
-    .value + "  "+" LastName:  " + document.getElementById('lastname').value +"   " + "Email: "+
-     document.getElementById('email').value + "  " );
-
-     //delete button create here ...
-     var deletebtn = document.createElement('button'); //button created here ..
-     deletebtn.className="btn btn-danger btn-sm float-right delete";
-     deletebtn.textContent='delete';
-
-     //add text and delete button on the screen 
-    list.appendChild(text1);
-    list.appendChild(deletebtn);
-
-   let main = document.getElementById('main');
-   main.appendChild(list);
+            //add event to delete button
+            deleteBtn.addEventListener('click',function (){
+                localStorage.removeItem(myobj.mail);
+                document.body.removeChild(list);
+            })
+            // deleteBtn.onclick = () => {
+            //     localStorage.removeItem(myobj.mail);
+            //     document.body.removeChild(list);
+            // }
+        }
+    // var button = document.getElementById('button');
 
 
-    //object create here....
-    let myobj = {
-        firstname : document.getElementById('firstname').value ,
-        lastname : document.getElementById('lastname').value,
-        email : document.getElementById('email').value
-    }
+    // button.addEventListener('click' , add);
+    // function add(e){
 
-    var serilize = JSON.stringify(myobj);
-    console.log(myobj.firstname);
-    localStorage.setItem( myobj.email, serilize);
-}
+    //     e.preventDefault();
 
-//now add delete Functionality in it 
-var del = document.getElementById('main');
+    //     //create adiv here firstly 
+    //     let list = document.createElement('li'); //list created here ..
 
-del.addEventListener('click' , DeleteFun);
+    //     //details print 
 
- function DeleteFun(e){
+    //     //create the text here ...
+    //     var text1 = document.createTextNode("Name: " + document.getElementById('firstname')
+    //     .value + "  "+" LastName:  " + document.getElementById('lastname').value +"   " + "Email: "+
+    //     document.getElementById('email').value + "  " );
 
-    // it will target the calss which contains delete in it 
-    if(e.target.classList.contains('delete')){
+    //     //delete button create here ...
+    //     var deletebtn = document.createElement('button'); //button created here ..
+    //     deletebtn.className="btn btn-danger btn-sm float-right delete";
+    //     deletebtn.textContent='delete';
 
-        //it will target the parent element ...
-        var li = e.target.parentElement;
-        //remove the child ..
-        del.removeChild(li);
+    //     //add text and delete button on the screen 
+    //     list.appendChild(text1);
+    //     list.appendChild(deletebtn);
 
-        localStorage.removeItem(document.getElementById('email').value);
-    }
- }
+    // let main = document.getElementById('main');
+    // main.appendChild(list);
+
+
+    //     //object create here....
+    //     let myobj = {
+    //         firstname : document.getElementById('firstname').value ,
+    //         lastname : document.getElementById('lastname').value,
+    //         email : document.getElementById('email').value
+    //     }
+
+    //     var serilize = JSON.stringify(myobj);
+    //     console.log(myobj.firstname);
+    //     localStorage.setItem( myobj.email, serilize);
+    // }
+
+    // //now add delete Functionality in it 
+    // var del = document.getElementById('main');
+
+    // del.addEventListener('click' , DeleteFun);
+
+    // function DeleteFun(e){
+
+    //     // it will target the calss which contains delete in it 
+    //     if(e.target.classList.contains('delete')){
+
+    //         //it will target the parent element ...
+    //         var li = e.target.parentElement;
+    //         //remove the child ..
+    //         del.removeChild(li);
+
+    //         localStorage.removeItem(document.getElementById('email').value);
+    //     }
+    // }
     </script>
 </body>
 </html>
