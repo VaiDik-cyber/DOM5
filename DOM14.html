@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="#" onsubmit="onsubmit(e)">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name">
+        <label for="mail">Email:</label>
+        <input type="text" name="mail" id="mail">
+        <label for="phone">Phone:</label>
+        <input type="number" name="phone" id="phone">
+        <input type="button" value="submit" id="btn">
+    </form>
+    <script>
+        let name = document.getElementById('name').value;
+        let mail = document.getElementById('mail').value;
+        let phone = document.getElementById('phone').value;
+        let btn = document.getElementById('btn');
+        
+        
+        btn.addEventListener('click',function onsubmit(e){
+            e.preventDefault();
+        
+            let myobj ={
+                name:document.getElementById('name').value,
+                mail:document.getElementById('mail').value,
+                phone:document.getElementById('phone').value,
+            }
+            // console.log(myobj);
+            // console.log(JSON.stringify(myobj));
+            
+            //to store object in localStorage first have to convert into string
+            localStorage.setItem(myobj.mail,JSON.stringify(myobj));
+
+            showUserOnScreen(myobj);
+        });
+
+        function showUserOnScreen(myobj){
+            //create list 
+            let list = document.createElement('li');
+            // add content to list 
+            list.textContent = `${myobj.name} - ${myobj.mail} - ${myobj.phone}`;
+
+            // create delete button
+            let deleteBtn = document.createElement('button');
+            //add class to delete button
+            deleteBtn.className='delete';
+            //add text to delete button
+            deleteBtn.textContent = 'Delete';
+
+            //create edit button
+            let editBtn = document.createElement('button');
+            editBtn.className = 'edit';
+            editBtn.textContent = 'Edit';
+
+            //add edit button to list
+            list.append(editBtn);
+            //add delete button to list
+            list.append(deleteBtn);
+            //add list to body
+            document.body.append(list);
+            
+            //add event on edit button
+            editBtn.onclick = (edit) =>{
+                //first remove from localstorage and list
+                localStorage.removeItem(myobj.mail);
+                document.body.removeChild(list);
+
+                //add name,mail,phone from object to that element 
+                //bcz objects values are still their
+                document.getElementById('name').value = myobj.name;
+                document.getElementById('mail').value = myobj.mail;
+                document.getElementById('phone').value = myobj.phone;
+            }
+            //add event to delete button
+            deleteBtn.addEventListener('click',function (){
+                localStorage.removeItem(myobj.mail);
+                document.body.removeChild(list);
+            })
+            // deleteBtn.onclick = () => {
+            //     localStorage.removeItem(myobj.mail);
+            //     document.body.removeChild(list);
+            // }
+        }
+    </script>
+</body>
+</html>
