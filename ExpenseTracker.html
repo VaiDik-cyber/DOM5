@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    
+</head>
+<body>
+    <div class="container">
+
+        <form action="#" onsubmit="onsubmit(e)">
+            <label for="Choose ExpenseAmount:" class="form-label">Choose ExpenseAmount</label>
+            <div class="input-group">
+                    <div class="input-group-text">₹</div>
+                    <input type="number" name="ExpenseAmount" id="ExpenseAmount" class="form-control">
+                    <div class="input-group-text">.00</div>
+            </div>
+            <label for="Choose Description:" class="form-label">Choose Description</label>
+            <input type="text" id="Description" name="Description" class="form-control">
+            <label for="Choose a category" class="form-label">Choose a category</label>
+            <select class="form-select" id="category">
+                <option value="Food" >Food</option>
+                <option value="Movie">Movie</option>
+                <option value="Fuel">Fuel</option>
+                <option value="Games">Games</option>
+                <option value="Bills">Bills</option>
+            </select>
+            <br>
+            <button class="btn btn-secondary" id="btn">Add Expense</button>
+            <br>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script>
+        let expenseAmount = document.getElementById("ExpenseAmount").value;
+        let description = document.getElementById("Description").value;
+        let category = document.querySelector(".form-select").value;
+        let btn = document.getElementById("btn");
+
+        // console.log(category);
+        btn.addEventListener('click',function onsubmit(e){
+            e.preventDefault();
+        
+        
+        let myobj = {
+            expenseAmount: document.getElementById("ExpenseAmount").value,
+            description: document.getElementById("Description").value,
+            category: document.getElementById("category").value,
+            
+        }
+        // console.log(myobj.category);
+        localStorage.setItem(myobj.category,JSON.stringify(myobj));
+
+        showUserOnScreen(myobj);
+    });
+
+    function showUserOnScreen(myobj){
+        // let ul = document.createElement("ul");
+        let list = document.createElement('li');
+        list.textContent = `${myobj.expenseAmount} - ${myobj.category} - ${myobj.description} `;
+        let delBtn = document.createElement('button');
+        delBtn.textContent = 'Delete Expense';
+
+        let editBtn = document.createElement('button');
+        editBtn.textContent = 'Edit Expense';
+        list.append(delBtn);
+        list.append(editBtn);
+        // ul.append(list);
+        document.body.append(list);
+
+        delBtn.addEventListener('click',()=>{
+            localStorage.removeItem(myobj.category);
+            document.body.removeChild(list);
+        })
+
+        editBtn.addEventListener('click',()=>{
+            localStorage.removeItem(myobj.category);
+            document.body.removeChild(list);
+
+            document.getElementById("ExpenseAmount").value = myobj.expenseAmount;
+            document.getElementById("Description").value = myobj.description;
+            document.getElementById("category").value = myobj.category;
+        })
+        }
+    </script>
+</body>
+</html>
